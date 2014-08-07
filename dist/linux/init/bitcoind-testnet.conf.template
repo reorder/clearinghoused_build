@@ -1,5 +1,5 @@
 #!upstart
-description "bitcoind (testnet)"
+description "viacoind (testnet)"
 
 start on startup
 stop on shutdown
@@ -15,5 +15,5 @@ end script
 script
 USER=!RUN_AS_USER!
 USER_HOME=!USER_HOMEDIR!
-start-stop-daemon --start -c $USER --make-pidfile --pidfile $USER_HOME/.bitcoin-testnet/bitcoind.pid --exec /usr/bin/bitcoind -- -daemon=0 -testnet -datadir=$USER_HOME/.bitcoin-testnet
+start-stop-daemon --start -c $USER --make-pidfile --pidfile $USER_HOME/.viacoin-testnet/viacoind.pid --exec /usr/local/bin/viacoind -- -daemon=0 -testnet -datadir=$USER_HOME/.viacoin-testnet
 end script

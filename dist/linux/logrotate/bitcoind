@@ -1,7 +1,7 @@
-!RUN_AS_USER_HOMEDIR!/.bitcoin/debug.log !RUN_AS_USER_HOMEDIR!/.bitcoin-testnet/testnet3/debug.log {
+!RUN_AS_USER_HOMEDIR!/.viacoin/debug.log !RUN_AS_USER_HOMEDIR!/.viacoin-testnet/testnet3/debug.log {
     weekly
     sharedscripts
     postrotate
-        killall -HUP bitcoind
+        killall -HUP viacoind
     endscript
 }
