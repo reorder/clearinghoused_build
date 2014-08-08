@@ -34,7 +34,7 @@ options that tell ``clearinghoused`` where and how to connect to your ``viacoind
 
     [Default]
     viacoind-rpc-connect=localhost
-    viacoind-rpc-port=8332
+    viacoind-rpc-port=5222
     viacoind-rpc-user=rpc
     viacoind-rpc-password=rpcpw1234
     rpc-user=my_api_user

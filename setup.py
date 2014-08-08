@@ -26,13 +26,13 @@ except ImportError:
     pass
 
 PYTHON3_VER = None
-DEFAULT_CONFIG = "[Default]\nbitcoind-rpc-connect=localhost\nbitcoind-rpc-port=8332\nbitcoind-rpc-user=rpc\nbitcoind-rpc-password=rpcpw1234\nrpc-host=localhost\nrpc-port=4000\nrpc-user=rpc\nrpc-password=xcppw1234"
-DEFAULT_CONFIG_TESTNET = "[Default]\nbitcoind-rpc-connect=localhost\nbitcoind-rpc-port=18332\nbitcoind-rpc-user=rpc\nbitcoind-rpc-password=rpcpw1234\nrpc-host=localhost\nrpc-port=14000\nrpc-user=rpc\nrpc-password=xcppw1234\ntestnet=1\ninsight-enable=1"
+DEFAULT_CONFIG = "[Default]\nbitcoind-rpc-connect=localhost\nbitcoind-rpc-port=5222\nbitcoind-rpc-user=rpc\nbitcoind-rpc-password=rpcpw1234\nrpc-host=localhost\nrpc-port=4000\nrpc-user=rpc\nrpc-password=xcppw1234"
+DEFAULT_CONFIG_TESTNET = "[Default]\nbitcoind-rpc-connect=localhost\nbitcoind-rpc-port=25222\nbitcoind-rpc-user=rpc\nbitcoind-rpc-password=rpcpw1234\nrpc-host=localhost\nrpc-port=14000\nrpc-user=rpc\nrpc-password=xcppw1234\ntestnet=1\ninsight-enable=1"
 DEFAULT_CONFIG_INSTALLER = "[Default]\nbitcoind-rpc-connect=BITCOIND_RPC_CONNECT\nbitcoind-rpc-port=BITCOIND_RPC_PORT\nbitcoind-rpc-user=BITCOIND_RPC_USER\nbitcoind-rpc-password=BITCOIND_RPC_PASSWORD\nrpc-host=RPC_HOST\nrpc-port=RPC_PORT\nrpc-user=RPC_USER\nrpc-password=RPC_PASSWORD"
 
-DEFAULT_CONFIG_COUNTERWALLETD = "[Default]\nbitcoind-rpc-connect=localhost\nbitcoind-rpc-port=8332\nbitcoind-rpc-user=rpc\nbitcoind-rpc-password=rpcpw1234\ncounterpartyd-rpc-host=localhost\ncounterpartyd-rpc-port=4000\ncounterpartyd-rpc-user=rpc\ncounterpartyd-rpc-password=xcppw1234\nrpc-host=0.0.0.0\nsocketio-host=0.0.0.0\nsocketio-chat-host=0.0.0.0\nredis-enable-apicache=0"
-DEFAULT_CONFIG_COUNTERWALLETD_TESTNET = "[Default]\nbitcoind-rpc-connect=localhost\nbitcoind-rpc-port=18332\nbitcoind-rpc-user=rpc\nbitcoind-rpc-password=rpcpw1234\ncounterpartyd-rpc-host=localhost\ncounterpartyd-rpc-port=14000\ncounterpartyd-rpc-user=rpc\ncounterpartyd-rpc-password=xcppw1234\nrpc-host=0.0.0.0\nsocketio-host=0.0.0.0\nsocketio-chat-host=0.0.0.0\nredis-enable-apicache=0\ntestnet=1"
-DEFAULT_CONFIG_INSTALLER_COUNTERWALLETD = "[Default]\nbitcoind-rpc-connect=localhost\nbitcoind-rpc-port=8332\nbitcoind-rpc-user=rpc\nbitcoind-rpc-password=rpcpw1234\ncounterpartyd-rpc-host=RPC_HOST\ncounterpartyd-rpc-port=RPC_PORT\ncounterpartyd-rpc-user=RPC_USER\ncounterpartyd-rpc-password=RPC_PASSWORD"
+DEFAULT_CONFIG_COUNTERWALLETD = "[Default]\nbitcoind-rpc-connect=localhost\nbitcoind-rpc-port=5222\nbitcoind-rpc-user=rpc\nbitcoind-rpc-password=rpcpw1234\nclearinghoused-rpc-host=localhost\nclearinghoused-rpc-port=4000\nclearinghoused-rpc-user=rpc\nclearinghoused-rpc-password=xcppw1234\nrpc-host=0.0.0.0\nsocketio-host=0.0.0.0\nsocketio-chat-host=0.0.0.0\nredis-enable-apicache=0"
+DEFAULT_CONFIG_COUNTERWALLETD_TESTNET = "[Default]\nbitcoind-rpc-connect=localhost\nbitcoind-rpc-port=25222\nbitcoind-rpc-user=rpc\nbitcoind-rpc-password=rpcpw1234\nclearinghoused-rpc-host=localhost\nclearinghoused-rpc-port=14000\nclearinghoused-rpc-user=rpc\nclearinghoused-rpc-password=xcppw1234\nrpc-host=0.0.0.0\nsocketio-host=0.0.0.0\nsocketio-chat-host=0.0.0.0\nredis-enable-apicache=0\ntestnet=1"
+DEFAULT_CONFIG_INSTALLER_COUNTERWALLETD = "[Default]\nbitcoind-rpc-connect=localhost\nbitcoind-rpc-port=5222\nbitcoind-rpc-user=rpc\nbitcoind-rpc-password=rpcpw1234\nclearinghoused-rpc-host=RPC_HOST\nclearinghoused-rpc-port=RPC_PORT\nclearinghoused-rpc-user=RPC_USER\nclearinghoused-rpc-password=RPC_PASSWORD"
 
 def which(filename):
     """docstring for which"""
@@ -86,11 +86,11 @@ def _rmtree(path):
 
 def usage():
     print("SYNTAX: %s [-h] [--with-clearblockd] [--with-testnet] [--for-user=] [setup|build|update]" % sys.argv[0])
-    print("* The 'setup' command will setup and install counterpartyd as a source installation (including automated setup of its dependencies)")
+    print("* The 'setup' command will setup and install clearinghoused as a source installation (including automated setup of its dependencies)")
     print("* The 'build' command builds an installer package (Windows only, currently)")
-    print("* The 'update' command updates the git repo for both counterpartyd, counterpartyd_build, and counterblockd (if --with-counterblockd is specified)")
+    print("* The 'update' command updates the git repo for both clearinghoused, clearinghoused_build, and clearblockd (if --with-clearblockd is specified)")
     print("* 'setup' is chosen by default if neither the 'build', 'update', or 'setup' arguments are specified.")
-    print("* If you want to install counterblockd along with counterpartyd, specify the --with-counterblockd option")
+    print("* If you want to install clearblockd along with clearinghoused, specify the --with-clearblockd option")
 
 def runcmd(command, abort_on_failure=True):
     logging.debug("RUNNING COMMAND: %s" % command)
@@ -185,7 +185,7 @@ def checkout(paths, run_as_user, with_counterblockd, is_update):
         raise Exception("Cannot get current get branch. Please make sure you are running setup.py from your clearinghoused_build directory.")
     
     logging.info("Checking out/updating clearinghoused:%s from git..." % branch)
-    counterpartyd_path = os.path.join(paths['dist_path'], "counterpartyd")
+    counterpartyd_path = os.path.join(paths['dist_path'], "clearinghoused")
     if os.path.exists(counterpartyd_path):
         runcmd("cd \"%s\" && git pull origin %s" % (counterpartyd_path, branch))
     else:
@@ -312,7 +312,7 @@ def create_virtualenv(paths, with_counterblockd):
     create_venv(paths['env_path'], paths['pip_path'], paths['python_path'], paths['virtualenv_args'],
         os.path.join(paths['dist_path'], "clearinghoused", "pip-requirements.txt"))
     if with_counterblockd: #as counterblockd uses python 2.x, it needs its own virtualenv
-        runcmd("rm -rf %s && mkdir -p %s" % (paths['env_path.counterblockd'], paths['env_path.counterblockd']))
+        runcmd("rm -rf %s && mkdir -p %s" % (paths['env_path.clearblockd'], paths['env_path.clearblockd']))
         create_venv(paths['env_path.clearblockd'], paths['pip_path.clearblockd'], paths['python_path.clearblockd'],
             paths['virtualenv_args.clearblockd'],
             os.path.join(paths['dist_path'], "clearblockd", "pip-requirements.txt"), delete_if_exists=False)
@@ -330,7 +330,7 @@ def setup_startup(paths, run_as_user, with_counterblockd, with_testnet, assume_y
         #create a batch script
         batch_contents = "echo off%sREM Launch clearinghoused (source build) under windows%s%s %s %%*" % (
             os.linesep, os.linesep, os.path.join(paths['sys_python_path'], "python.exe"), os.path.join(paths['base_path'], "run.py"))
-        f = open("%s" % os.path.join(os.environ['WINDIR'], "clearpartyd.bat"), "w")
+        f = open("%s" % os.path.join(os.environ['WINDIR'], "clearinghoused.bat"), "w")
         f.write(batch_contents)
         f.close()
 
@@ -378,8 +378,8 @@ def setup_startup(paths, run_as_user, with_counterblockd, with_testnet, assume_y
         runcmd("sed -ri \"s/\!RUN_AS_USER\!/%s/g\" /etc/init/clearinghoused.conf" % run_as_user)
         runcmd("sed -ri \"s/\!USER_HOMEDIR\!/%s/g\" /etc/init/clearinghoused.conf" % user_homedir.replace('/', '\/'))
         if with_testnet:
-            runcmd("rm -f /etc/init/counterpartyd-testnet.conf")
-            runcmd("cp -af %s/linux/init/counterpartyd-testnet.conf.template /etc/init/clearinghoused-testnet.conf" % paths['dist_path'])
+            runcmd("rm -f /etc/init/clearinghoused-testnet.conf")
+            runcmd("cp -af %s/linux/init/clearinghoused-testnet.conf.template /etc/init/clearinghoused-testnet.conf" % paths['dist_path'])
             runcmd("sed -ri \"s/\!RUN_AS_USER\!/%s/g\" /etc/init/clearinghoused-testnet.conf" % run_as_user)
             runcmd("sed -ri \"s/\!USER_HOMEDIR\!/%s/g\" /etc/init/clearinghoused-testnet.conf" % user_homedir.replace('/', '\/'))
         if with_counterblockd:
@@ -464,7 +464,7 @@ def do_build(paths, with_counterblockd):
     cfg.write(DEFAULT_CONFIG_INSTALLER)
     cfg.close()
     if with_counterblockd:
-        cfg = open(os.path.join(os.path.join(paths['bin_path'], "build"), "clearinghoused.conf.default"), 'w')
+        cfg = open(os.path.join(os.path.join(paths['bin_path'], "build"), "clearblockd.conf.default"), 'w')
         cfg.write(COUNTERWALLETD_DEFAULT_CONFIG_INSTALLER)
         cfg.close()
     

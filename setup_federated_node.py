@@ -175,7 +175,7 @@ def do_base_setup(run_as_user, branch, base_path, dist_path):
     git_repo_clone(branch, "clearinghoused_build", REPO_COUNTERPARTYD_BUILD, run_as_user)
 
     #enhance fd limits for the xcpd user
-    runcmd("cp -af %s/linux/other/xcpd_security_limits.conf /etc/security/limits.d/" % dist_path)
+    runcmd("cp -af %s/linux/other/xchd_security_limits.conf /etc/security/limits.d/" % dist_path)
 
 def do_security_setup(run_as_user, branch, base_path, dist_path):
     """Some helpful security-related tasks, to tighten up the box"""
@@ -291,7 +291,7 @@ def do_bitcoind_setup(run_as_user, branch, base_path, dist_path, run_mode):
     return bitcoind_rpc_password, bitcoind_rpc_password_testnet
 
 def do_counterparty_setup(run_as_user, branch, base_path, dist_path, run_mode, bitcoind_rpc_password, bitcoind_rpc_password_testnet):
-    """Installs and configures counterpartyd and counterblockd"""
+    """Installs and configures clearinghoused and clearblockd"""
     user_homedir = os.path.expanduser("~" + USERNAME)
     counterpartyd_rpc_password = pass_generator()
     counterpartyd_rpc_password_testnet = pass_generator()
@@ -312,7 +312,7 @@ def do_counterparty_setup(run_as_user, branch, base_path, dist_path, run_mode, b
         USERNAME, USERNAME, USERNAME, USERNAME))    
     runcmd("chown -R %s:%s ~%s/.config/clearinghoused ~%s/.config/clearinghoused-testnet ~%s/.config/clearblockd ~%s/.config/clearblockd-testnet" % (
         DAEMON_USERNAME, USERNAME, USERNAME, USERNAME, USERNAME, USERNAME))
-    runcmd("sed -ri \"s/USER=%s/USER=%s/g\" /etc/init/counterpartyd.conf /etc/init/counterpartyd-testnet.conf /etc/init/clearblockd.conf /etc/init/clearblockd-testnet.conf" % (
+    runcmd("sed -ri \"s/USER=%s/USER=%s/g\" /etc/init/clearinghoused.conf /etc/init/clearinghoused-testnet.conf /etc/init/clearblockd.conf /etc/init/clearblockd-testnet.conf" % (
         USERNAME, DAEMON_USERNAME))
 
     #modify the default stored bitcoind passwords in counterpartyd.conf and counterblockd.conf
@@ -330,9 +330,9 @@ def do_counterparty_setup(run_as_user, branch, base_path, dist_path, run_mode, b
         counterpartyd_rpc_password, USERNAME))
     runcmd(r"""sed -ri "s/^rpc\-password=.*?$/rpc-password=%s/g" ~%s/.config/clearinghoused-testnet/clearinghoused.conf""" % (
         counterpartyd_rpc_password_testnet, USERNAME))
-    runcmd(r"""sed -ri "s/^counterpartyd\-rpc\-password=.*?$/counterpartyd-rpc-password=%s/g" ~%s/.config/clearblockd/clearblockd.conf""" % (
+    runcmd(r"""sed -ri "s/^clearinghoused\-rpc\-password=.*?$/clearinghoused-rpc-password=%s/g" ~%s/.config/clearblockd/clearblockd.conf""" % (
         counterpartyd_rpc_password, USERNAME))
-    runcmd(r"""sed -ri "s/^counterpartyd\-rpc\-password=.*?$/counterpartyd-rpc-password=%s/g" ~%s/.config/clearblockd-testnet/clearblockd.conf""" % (
+    runcmd(r"""sed -ri "s/^clearinghoused\-rpc\-password=.*?$/clearinghoused-rpc-password=%s/g" ~%s/.config/clearblockd-testnet/clearblockd.conf""" % (
         counterpartyd_rpc_password_testnet, USERNAME))
     
     #disable upstart scripts from autostarting on system boot if necessary
@@ -340,7 +340,7 @@ def do_counterparty_setup(run_as_user, branch, base_path, dist_path, run_mode, b
         runcmd(r"""bash -c "echo 'manual' >> /etc/init/clearinghoused.override" """)
         runcmd(r"""bash -c "echo 'manual' >> /etc/init/clearblockd.override" """)
     else:
-        runcmd("rm -f /etc/init/counterpartyd.override /etc/init/clearblockd.override")
+        runcmd("rm -f /etc/init/clearinghoused.override /etc/init/clearblockd.override")
     if run_mode == 'm': #disable testnet daemons from autostarting
         runcmd(r"""bash -c "echo 'manual' >> /etc/init/clearinghoused-testnet.override" """)
         runcmd(r"""bash -c "echo 'manual' >> /etc/init/clearblockd-testnet.override" """)
@@ -597,7 +597,7 @@ def do_newrelic_setup(run_as_user, base_path, dist_path, run_mode):
     #install/setup python agent for both counterpartyd and counterblockd
     #counterpartyd
     runcmd("%s/env/bin/pip install newrelic" % base_path)
-    runcmd("cp -af %s/linux/newrelic/nr_counterpartyd.ini.template /etc/newrelic/nr_counterpartyd.ini" % dist_path)
+    runcmd("cp -af %s/linux/newrelic/nr_clearinghoused.ini.template /etc/newrelic/nr_clearinghoused.ini" % dist_path)
     runcmd("sed -ri \"s/\!LICENSE_KEY\!/%s/g\" /etc/newrelic/nr_clearinghoused.ini" % nr_license_key)
     runcmd("sed -ri \"s/\!HOSTNAME\!/%s/g\" /etc/newrelic/nr_clearinghoused.ini" % nr_hostname)
     #counterblockd
@@ -608,7 +608,7 @@ def do_newrelic_setup(run_as_user, base_path, dist_path, run_mode):
     #install init scripts (overwrite the existing ones for now at least)
     runcmd("cp -af %s/linux/newrelic/init/nr-clearinghoused.conf /etc/init/clearinghoused.conf" % dist_path) #overwrite
     #runcmd("cp -af %s/linux/newrelic/init/nr-clearblockd.conf /etc/init/clearblockd.conf" % dist_path) #overwrite
-    runcmd("cp -af %s/linux/newrelic/init/nr-clearinghoused-testnet.conf /etc/init/counterpartyd-testnet.conf" % dist_path) #overwrite
+    runcmd("cp -af %s/linux/newrelic/init/nr-clearinghoused-testnet.conf /etc/init/clearinghoused-testnet.conf" % dist_path) #overwrite
     #runcmd("cp -af %s/linux/newrelic/init/nr-clearblockd-testnet.conf /etc/init/clearblockd-testnet.conf" % dist_path) #overwrite
     #upstart enablement (overrides) should be fine as established in do_counterparty_setup...
 

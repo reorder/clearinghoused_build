@@ -11,7 +11,7 @@ build_exe_options = {
 	"excludes": ["tkinter",],
 }
 
-scriptPath = os.path.normpath(os.path.join(os.path.dirname(os.path.realpath(sys.argv[0])), "clearinghouse"))
+scriptPath = os.path.normpath(os.path.join(os.path.dirname(os.path.realpath(sys.argv[0])), "clearinghoused"))
 
 sys.path.insert(0, scriptPath)
 path = sys.path
