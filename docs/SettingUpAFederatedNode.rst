@@ -57,7 +57,7 @@ armory_utxsvr (Optional)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This service is used by ``clearblockd`` with Counterwallet, to allow for the creation of unsigned transaction
-ASCII text blocks, which may then be used with an `Offline Armory configuration <https://viacoinarmory.com/about/using-our-wallet/>`__.
+ASCII text blocks, which may then be used with an `Offline Armory configuration <https://bitcoinarmory.com/about/using-our-wallet/>`__.
 This service requires Armory itself, which is automatically installed as part of the Federated Node setup procedure.
 
 Counterwallet, etc.

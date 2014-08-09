@@ -3,7 +3,7 @@ ViacoinTest Additional Topics
 
 This section contains some tidbits of info that you may find useful when working with ``clearinghoused``.
 
-For a good overview of what you can do with ``clearinghoused``, see `this link <https://github.com/ClearinghouseXCP/clearinghoused#usage>`__.
+For a good overview of what you can do with ``clearinghoused``, see `this link <https://github.com/ClearingHouse/clearinghoused#usage>`__.
 
 Finding the Data Directory
 ---------------------------
@@ -14,10 +14,10 @@ data directory.
 Under Linux, the data directory is normally located in ``~/.config/clearinghoused`` (when
 ``clearinghoused`` is installed normally, via the ``setup.py`` installer).
 
-Under Windows, the data directory is normally located at ``%APPDATA%\Clearinghouse\clearinghoused``. Examples of this are:
+Under Windows, the data directory is normally located at ``%APPDATA%\ClearingHouse\clearinghoused``. Examples of this are:
 
-- ``C:\Users\<your username>\AppData\Roaming\Clearinghouse\clearinghoused`` (Windows 7/8/Server)
-- ``C:\Documents and Settings\<your username>\Application Data\Clearinghouse\clearinghoused`` (Windows XP)
+- ``C:\Users\<your username>\AppData\Roaming\ClearingHouse\clearinghoused`` (Windows 7/8/Server)
+- ``C:\Documents and Settings\<your username>\Application Data\ClearingHouse\clearinghoused`` (Windows XP)
 
 
 Editing the Config

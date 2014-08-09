@@ -21,4 +21,4 @@ setup(  name = "clearinghoused",
         version = "0.1",
         description = "ClearingHouse Daemon",
         options = {"build_exe": build_exe_options},
-        executables = [Executable(os.path.join(scriptPath, "clearinghouse.py"), base=base)])
+        executables = [Executable(os.path.join(scriptPath, "clearinghoused.py"), base=base)])
